@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Installer les dépendances du projet
-RUN pip install --no-cache-dir -r dep.txt
+RUN pip install -r dep.txt
 
 # Exposer le port 80
 EXPOSE 8000
