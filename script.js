@@ -21,7 +21,7 @@ document.getElementById("language-select").addEventListener("change", () => {
 document.getElementById("sendButton").addEventListener('click', () => {
     const language = document.getElementById("language-select").value;
     const text = document.getElementById("translate").value;
-
+    loadStart();
     if (language === "dendi") {
         sendDendi(text)
     } else {
@@ -81,6 +81,7 @@ async function getImage(text) {
     const imageUrl = URL.createObjectURL(data);
     const image = document.getElementById("printImage");
     image.src = imageUrl;
+    loadEnd()
     console.log(data);
 }
 
@@ -91,6 +92,7 @@ async function startRecording() {
         audioChunks.push(event.data);
     });
     mediaRecorder.addEventListener("stop", () => {
+        loadStart();
         audioBlob = new Blob(audioChunks, { type: "audio/wav" });
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
@@ -132,6 +134,7 @@ uploadButton.addEventListener("click", () => {
     input.click();
 
     input.onchange = () => {
+        loadStart();
         const file = input.files[0];
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -166,6 +169,19 @@ uploadButton.addEventListener("click", () => {
     };
 });
 
+const loadStart = () => {
+    const image = document.getElementById("printImage");
+  const spinner = document.getElementById("spinner");
+  spinner.style.display = "block";
+    image.style.display = "none";
+}
+const loadEnd = () => {
+    const image = document.getElementById("printImage");
+  const spinner = document.getElementById("spinner");
+  spinner.style.display = "none";
+    image.style.display = "block";
+}
+
 const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
   const byteCharacters = atob(b64Data);
   const byteArrays = [];
@@ -194,3 +210,5 @@ document.getElementById("recordButton").addEventListener("click", () => {
         startRecording();
     }
 });
+
+
