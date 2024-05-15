@@ -1,0 +1,5 @@
+.record-button-recording {
+    background-color: #ff0000; /* red background color to indicate recording */
+    border: 2px solid #ffffff; /* white border to make the button stand out */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* red glow effect */
+}
