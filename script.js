@@ -8,10 +8,13 @@ getImage("Bienvenu")
 document.getElementById("language-select").addEventListener("change", () => {
     language = document.getElementById("language-select").value;
     const recordButton = document.getElementById("recordButton");
+    const uploadButton = document.getElementById("uploadButton");
     if (language === "dendi") {
         recordButton.style.display = "none";
+        uploadButton.style.display = "none";
     } else {
         recordButton.style.display = "block";
+        uploadButton.style.display = "block";
     }
 });
 
@@ -120,6 +123,48 @@ async function startRecording() {
     mediaRecorder.start();
     document.getElementById("recordButton").classList.add("record-button-recording"); // add the recording class
 }
+
+const uploadButton = document.getElementById("uploadButton");
+uploadButton.addEventListener("click", () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'audio/wav';
+    input.click();
+
+    input.onchange = () => {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onloadend = () => {
+            const base64data = reader.result;
+            const audioData = base64data.split(",")[1];
+
+            // Convert audioData to blob
+            const blob = new Blob([audioData], { type: "audio/wav" });
+
+            // Send blob to your server
+            fetch("https://api-inference.huggingface.co/models/speechbrain/asr-wav2vec2-dvoice-fongbe", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer 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"
+                },
+                body: blob,
+            })
+            .then(response => response.json())
+            .then(data => {
+             console.info(data);
+             console.info(data['text']);
+             const inputField = document.getElementById("translate");
+                 inputField.value = data['text'];
+                 sendFon(data['text'])
+             })
+            .catch(error => {
+                 console.error("Error:", error);
+             });
+        };
+    };
+});
 
 document.getElementById("recordButton").addEventListener("click", () => {
     if (mediaRecorder && mediaRecorder.state === "recording") {
