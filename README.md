@@ -4,10 +4,10 @@ Our project is a revolutionary initiative to harness the power of technology to 
 Visitors, both local and foreign, can now interact with the exhibits and artefacts without being restricted by language barriers.This approach fosters a deeper, more immersive understanding of Beninese culture, while encouraging linguistic diversity and respect for local languages.In a country like Benin, where a multitude of languages and dialects co-exist, our project is of particular importance.It helps to preserve and promote the country's linguistic and cultural wealth by offering an inclusive platform where every language has its place.In short, our application is much more than a simple technological tool. It is a bridge between languages, cultures and generations, transforming Benin's museums into dynamic and inclusive learning spaces, where every visitor can feel fully engaged and connected to the history and cultural wealth of the country.
 
 
-**>>> Install packages**
-*pip install -r dep.txt*
+# Install packages**
+pip install -r dep.txt
 
-**>>> Run the app**
-*uvicorn api:app --reload*
-*run index.html in your navigator*
+# Run the app**
+uvicorn api:app --reload
+run index.html in your navigator
 
