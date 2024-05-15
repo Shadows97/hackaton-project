@@ -8,6 +8,6 @@ Visitors, both local and foreign, can now interact with the exhibits and artefac
 pip install -r dep.txt
 
 # Run the app**
-uvicorn api:app --reload
+uvicorn api:app --reload  
 run index.html in your navigator
 
