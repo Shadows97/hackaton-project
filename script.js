@@ -207,6 +207,7 @@ document.getElementById("recordButton").addEventListener("click", () => {
         mediaRecorder.stop();
         document.getElementById("recordButton").classList.remove("record-button-recording"); // remove the recording class
     } else {
+        document.getElementById("recordButton").classList.add("record-button-recording");
         startRecording();
     }
 });
