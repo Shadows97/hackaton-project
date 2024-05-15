@@ -1,4 +1,2 @@
 fastapi
 uvicorn
-torch
-huggingface_hub
