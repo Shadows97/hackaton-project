@@ -34,12 +34,25 @@ app.add_middleware(
 
 
 @app.post("/translate/dendi")
+def get_translation_dendi( payload: Dict[Any, Any]):
+    '''
+    This takes a sentence and gets the translation.
+    '''
+    print(payload)
+    correspondance =df_dendi[df_dendi['input_text'].str.contains(payload['source_sentence'])]['new_anglais'].values
+    
+    if len(correspondance) > 0:
+        return {'result': correspondance[0]}
+    else:
+        return {'result': "cheval"}
+
+@app.post("/translate/fon")
 def get_translation( payload: Dict[Any, Any]):
     '''
     This takes a sentence and gets the translation.
     '''
     print(payload)
-    correspondance = df_dendi[df_dendi['input_text'] == payload['source_sentence']]['new_anglais'].values
+    correspondance =df_fon[df_fon['Fon'].str.contains(payload['source_sentence'])]['French'].values
     
     if len(correspondance) > 0:
         return {'result': correspondance[0]}

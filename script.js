@@ -40,7 +40,7 @@ async function sendFon(text) {
         target_language: "French",
         source_sentence: text,
     }
-    axios.post('http://localhost:8000/translate/dendi', data)
+    axios.post('http://localhost:8000/translate/fon', data)
     .then(response => {
         const data = response.data
         console.log(data)
