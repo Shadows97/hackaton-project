@@ -142,14 +142,14 @@ uploadButton.addEventListener("click", () => {
 
             // Convert audioData to blob
             const blob = new Blob([audioData], { type: "audio/wav" });
-
+            console.log(blob)
             // Send blob to your server
             fetch("https://api-inference.huggingface.co/models/speechbrain/asr-wav2vec2-dvoice-fongbe", {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer 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"
                 },
-                body: blob,
+                body: b64toBlob(audioData, "audio/wav"),
             })
             .then(response => response.json())
             .then(data => {
@@ -165,6 +165,26 @@ uploadButton.addEventListener("click", () => {
         };
     };
 });
+
+const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+  const byteCharacters = atob(b64Data);
+  const byteArrays = [];
+
+  for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+    
+  const blob = new Blob(byteArrays, {type: contentType});
+  return blob;
+}
 
 document.getElementById("recordButton").addEventListener("click", () => {
     if (mediaRecorder && mediaRecorder.state === "recording") {
